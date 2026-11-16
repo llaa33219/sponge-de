@@ -15,16 +15,25 @@ CONFIG   += c++2a
 # dropping it is harmless for a Genode component.
 QT_CONFIG -= permissions
 
+# Shared umbrella-owned header/source locations. target.mk resolves
+# them across Genode REPOSITORIES ($(call select_from_repositories,...))
+# and exports the parent directories; the $$(...) fallback reads the
+# environment for standalone qmake runs.
+isEmpty(SPONGE_SHARED_INCLUDE_DIR): SPONGE_SHARED_INCLUDE_DIR = $$(SPONGE_SHARED_INCLUDE_DIR)
+isEmpty(SPONGE_BACKEND_CLIENT_DIR): SPONGE_BACKEND_CLIENT_DIR = $$(SPONGE_BACKEND_CLIENT_DIR)
+isEmpty(SPONGE_SHARED_INCLUDE_DIR)|isEmpty(SPONGE_BACKEND_CLIENT_DIR): \
+    error("SPONGE_SHARED_INCLUDE_DIR/SPONGE_BACKEND_CLIENT_DIR must be set (target.mk exports them via select_from_repositories)")
+
 # $$PWD            — component-root includes ("theme/theme_loader.h", ...)
-# $$PWD/../../include — Sponge shared headers (<sponge/version.h>,
+# $$SPONGE_SHARED_INCLUDE_DIR — Sponge shared headers (<sponge/version.h>,
 #                       <sponge/backend_client.h>)
-# $$PWD/../../lib/src/sponge_backend_client — shared Report/ROM client
+# $$SPONGE_BACKEND_CLIENT_DIR — shared Report/ROM client
 #     source compiled directly into sponge-de (qmake simplicity; the
 #     same sources are also packaged as the sponge_backend_client.lib.a
 #     used by vct and other plain Genode components).
 INCLUDEPATH += $$PWD \
-               $$PWD/../../include \
-               $$PWD/../../lib/src/sponge_backend_client
+               $$SPONGE_SHARED_INCLUDE_DIR \
+               $$SPONGE_BACKEND_CLIENT_DIR
 
 SOURCES  += main.cc \
             sponge_de_main.cc \
@@ -47,7 +56,7 @@ SOURCES  += main.cc \
             background/background_widget.cc \
             background/background_controller.cc \
             background/show_desktop.cc \
-            ../../lib/src/sponge_backend_client/backend_client.cc
+            $$SPONGE_BACKEND_CLIENT_DIR/backend_client.cc
 
 HEADERS  += sponge_de_main.h \
             panel/panel_widget.h \
