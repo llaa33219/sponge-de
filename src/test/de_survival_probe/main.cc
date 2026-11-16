@@ -19,7 +19,7 @@
  *      hosts sponge_pkgd so its state report (`system -> state`,
  *      routed as ROM `system_state`) carries pkgd's heartbeat skips /
  *      exits - the exact input sponge-de's health watcher composes the
- *      panel label from (repos/sponge/src/sponge-de/main.cc).
+ *      panel label from (repos/sponge-de/src/sponge-de/main.cc).
  *   2. Pre-wedge positive controls (P1-P3) over the REAL QMP input
  *      path: install pkg_gui_demo on the probe channel, watch the
  *      launcher feed go live, sample first paint, click S + the first

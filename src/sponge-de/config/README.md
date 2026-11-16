@@ -37,7 +37,7 @@ multi-reader is fine. The only constraint is that there must be
 exactly ONE writer (which is `sponge_configd`'s
 `Expanding_reporter("config")`).
 
-The sponge_de_probe (`repos/sponge/src/test/sponge_de_probe/`) drives
+The sponge_de_probe (`repos/sponge-de/src/test/sponge_de_probe/`) drives
 sponge_configd's `config_request`/`config_result` channel from the
 *other* side of the system (the same channel vct uses); see
 `run/sponge-panel-config.run` for the wiring.
