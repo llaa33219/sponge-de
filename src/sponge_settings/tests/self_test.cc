@@ -21,9 +21,9 @@
  *       -I genode/repos/base/src/include \
  *       -I genode/repos/os/include \
  *       -I repos/sponge/include \
- *       repos/sponge/src/sponge_settings/tests/self_test.cc \
- *       repos/sponge/src/sponge_settings/tests/test_cases.cc \
- *       repos/sponge/src/sponge_settings/model.cc \
+ *       repos/sponge-de/src/sponge_settings/tests/self_test.cc \
+ *       repos/sponge-de/src/sponge_settings/tests/test_cases.cc \
+ *       repos/sponge-de/src/sponge_settings/model.cc \
  *       genode/repos/base/src/lib/base/node.cc \
  *       genode/repos/base/src/lib/base/hid.cc \
  *       genode/repos/base/src/lib/base/xml_generator.cc \

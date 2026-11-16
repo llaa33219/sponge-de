@@ -11,7 +11,7 @@
 #      against the shipped model.cc (see self_test.cc for rationale).
 #
 # Run from anywhere; expects the repository checkout layout.
-#   repos/sponge/src/sponge_settings/tests/check.sh
+#   repos/sponge-de/src/sponge_settings/tests/check.sh
 #
 # Exit code 0 = all checks passed.
 
