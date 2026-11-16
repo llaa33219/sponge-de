@@ -205,5 +205,5 @@ bridge picks `panel_bg` because:
 
 The hand-edit escape hatch lives in `tool/decor_assets_data/metadata.txt`
 (geometry) and the four shipped theme files in
-`repos/sponge/src/sponge-de/themes/` (palette). The bridge picks
+`repos/sponge-de/src/sponge-de/themes/` (palette). The bridge picks
 `panel_bg` because that is the documented intentional target.
