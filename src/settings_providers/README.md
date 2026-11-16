@@ -93,8 +93,8 @@ is the provider's rows + closed quick vocabulary (~100-250 lines).
 ## Tests
 
 ```
-./repos/sponge/src/settings_providers/tests/run.sh                 # host logic self-test
-./repos/sponge/src/settings_providers/tests/structural_checks.sh   # label/metadata pins
+./repos/sponge-de/src/settings_providers/tests/run.sh                 # host logic self-test
+./repos/sponge-de/src/settings_providers/tests/structural_checks.sh   # label/metadata pins
 ```
 
 ## Display / Terminal typed-key seam

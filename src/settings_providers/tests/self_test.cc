@@ -12,7 +12,7 @@
  *
  * BUILD & RUN (from the repository root; host g++ only):
  *
- *   ./repos/sponge/src/settings_providers/tests/run.sh
+ *   ./repos/sponge-de/src/settings_providers/tests/run.sh
  *
  * Exit code 0 and a final "self-test: PASS (N checks)" line mean
  * every check matched. "self-test: FAIL (M/N)" prints every

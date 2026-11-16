@@ -7,7 +7,7 @@
 # abbreviated templates, so the host build uses -std=c++20 while the
 # production sources stay in the C++17 subset).
 #
-# Usage (from anywhere): ./repos/sponge/src/settings_providers/tests/run.sh
+# Usage (from anywhere): ./repos/sponge-de/src/settings_providers/tests/run.sh
 
 set -euo pipefail
 

@@ -8,7 +8,7 @@
 # metadata declarations. Run from anywhere; exits non-zero on the
 # first divergence and prints it.
 #
-#   ./repos/sponge/src/settings_providers/tests/structural_checks.sh
+#   ./repos/sponge-de/src/settings_providers/tests/structural_checks.sh
 
 set -u
 
