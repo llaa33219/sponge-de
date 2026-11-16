@@ -97,14 +97,29 @@ struct Cycle_probe
 			if (base[i] != '+' || base[i+1] != ' ' || base[i+2] != 'r'
                             || base[i+3] != 'a' || base[i+4] != 'm')
 				continue;
-			ram_used = 0;
-			for (Genode::size_t j = i; j < sz; j++) {
-				if (base[j] == '\n') break;
-				if (base[j] == 'k' && j > 0 && base[j-1] == ' ')
-					ram_used = 1024ul;
-				if (base[j] == 'M' && j > 0 && base[j-1] == ' ')
-					ram_used = 1024ul * 1024ul;
+			char const *used = nullptr;
+			for (Genode::size_t j = i; j + 6 < sz && base[j] != '\n'; ++j) {
+				if (base[j]     == 'u' && base[j + 1] == 's' &&
+				    base[j + 2] == 'e' && base[j + 3] == 'd' &&
+				    base[j + 4] == ':' && base[j + 5] == ' ') {
+					used = &base[j + 6];
+					break;
+				}
 			}
+			if (!used) return false;
+
+			unsigned long value = 0;
+			Genode::size_t digits = 0;
+			char const *p = used;
+			while (p < base + sz && *p >= '0' && *p <= '9') {
+				value = value * 10 + (unsigned long)(*p - '0');
+				++p;
+				++digits;
+			}
+			if (digits == 0) return false;
+			if (p < base + sz && *p == 'K') value *= 1024ul;
+			else if (p < base + sz && *p == 'M') value *= 1024ul * 1024ul;
+			ram_used = value;
 			return true;
 		}
 		return false;
