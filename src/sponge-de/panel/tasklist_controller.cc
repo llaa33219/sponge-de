@@ -674,6 +674,16 @@ void TasklistController::_emit_static_rules(Genode::Xml_generator &g) const
 	if (_static_rules_xml.isEmpty())
 		return;
 
+	/*
+	 * Static rules carry ABSOLUTE placements while the layouter's
+	 * <assign> xpos/ypos are boundary-relative (same contract as
+	 * _append_assign_for). Without a known boundary there is no origin
+	 * to convert with, so the rules are withheld until the boundary
+	 * dimensions are valid rather than being published unrelocated.
+	 */
+	if (_layout_area_w <= 0 || _layout_area_h <= 0)
+		return;
+
 	try {
 		QByteArray const bytes = _static_rules_xml.toUtf8();
 		Genode::Node const fragment(Genode::Const_byte_range_ptr(
@@ -688,6 +698,27 @@ void TasklistController::_emit_static_rules(Genode::Xml_generator &g) const
 						? attr.value.num_bytes : sizeof(value) - 1;
 					Genode::memcpy(value, attr.value.start, n);
 					value[n] = '\0';
+
+					/*
+					 * Convert static numeric xpos/ypos from
+					 * screen-absolute to boundary-relative exactly once
+					 * per publication: the stored XML stays absolute, so
+					 * each republication starts from the original value
+					 * and the origin subtraction never accumulates. The
+					 * -32000 parking sentinel and non-numeric values are
+					 * emitted verbatim.
+					 */
+					if (attr.name == "xpos" || attr.name == "ypos") {
+						int num = 0;
+						Genode::size_t const used = Genode::ascii_to(value, num);
+						if (used && value[used] == '\0' && num != -32000) {
+							g.attribute(attr.name.string(),
+							            num - ((attr.name == "xpos")
+							                     ? _layout_origin_x
+							                     : _layout_origin_y));
+							return;
+						}
+					}
 					g.attribute(attr.name.string(), value);
 				});
 			});
